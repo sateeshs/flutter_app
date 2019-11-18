@@ -17,3 +17,5 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Commands
  - flutter pub get
+
+ BLOC: https://www.didierboelens.com/2018/12/reactive-programming---streams---bloc---practical-use-cases/

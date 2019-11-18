@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:http/http.dart' as http;
+
 class BackendService {
   static Future<List> getSuggestions(String query) async {
     await Future.delayed(Duration(seconds: 1));
@@ -33,4 +35,11 @@ class CitiesService {
     matches.retainWhere((s) => s.toLowerCase().contains(query.toLowerCase()));
     return matches;
   }
+Future<String> Get(String key) async{
+
+  var response = await http.get(
+      Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
+      headers: {"Accept": "application/json"});
+
+}
 }

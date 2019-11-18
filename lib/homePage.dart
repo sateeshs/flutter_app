@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'containers/searchLocation.dart';
+import 'widgets/searchLocation.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
