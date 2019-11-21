@@ -8,6 +8,8 @@ import 'package:rxdart/rxdart.dart';
 
 abstract class LocationEvent extends Equatable {
   LocationEvent([List props = const []]) : super(props);
+
+  
 }
 
 class TextChanged extends LocationEvent {

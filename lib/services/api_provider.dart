@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:flutter_app/common/dependency_injection.dart';
 import 'package:flutter_app/models/country.dart';
-import 'package:flutter_app/services/abstract/api_service.dart';
-import 'package:flutter_app/services/di/dependency_injection.dart';
+
 import 'package:flutter_app/services/network_service_response.dart';
+
+import 'api_service.dart';
 
 class ApiProvider {
   NetworkServiceResponse apiResult;

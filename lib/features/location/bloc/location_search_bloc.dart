@@ -1,7 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/features/location/bloc/location_search_event.dart';
+import 'package:flutter_app/features/location/bloc/location_search_state.dart';
+import 'package:flutter_app/models/api/search_result_error.dart';
 import 'package:flutter_app/models/locationModel.dart';
+import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 
 class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   final LyricsRepository lyricsRepository;
@@ -58,10 +64,10 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   Stream<LocationsSearchState> _mapLocationAddToState(AddLocation event) async* {
-    LocationBase updatedLocation = await lyricsRepository.addLocation(event.Location);
+    LocationModel updatedLocation = await lyricsRepository.addLocation(event.Location);
     if (currentState is SearchStateSuccess) {
       SearchStateSuccess state = currentState;
-      List<LocationBase> updatedList = (currentState as SearchStateSuccess).Locations;
+      List<LocationModel> updatedList = (currentState as SearchStateSuccess).locations;
 
       yield AddEditLocationstateSuccess();
 
@@ -83,7 +89,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   Stream<LocationsSearchState> _mapLocationEditToState(EditLocation event) async* {
-    LocationBase updatedLocation = await lyricsRepository.editLocation(event.Location);
+    LocationModel updatedLocation = await lyricsRepository.editLocation(event.Location);
     yield EditLocationstateSuccess(updatedLocation);
   }
 

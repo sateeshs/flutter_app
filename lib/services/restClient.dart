@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_app/utils/vars.dart';
+import 'package:flutter_app/common/constants.dart';
 import 'package:http/http.dart' as http;
 import 'network_service_response.dart';
 

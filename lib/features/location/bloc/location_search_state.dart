@@ -1,6 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_app/models/locationModel.dart';
+import 'package:meta/meta.dart';
 
 
+@immutable
 abstract class LocationsSearchState extends Equatable {
   LocationsSearchState([List props = const []]) : super(props);
 }
@@ -25,18 +28,18 @@ class SearchStateSuccess extends LocationsSearchState {
   String toString() => 'SearchStateSuccess { songs: ${locations.length} }';
 }
 
-class AddEditSongStateSuccess extends LocationsSearchState {
+class AddEditLocationStateSuccess extends LocationsSearchState {
   @override
-  String toString() => 'AddSongSuccess';
+  String toString() => 'AddLocationSuccess';
 }
 
-class EditSongStateSuccess extends LocationsSearchState {
+class EditLocationStateSuccess extends LocationsSearchState {
   final LocationModel location;
 
-  EditSongStateSuccess(this.location) : super([location]);
+  EditLocationStateSuccess(this.location) : super([location]);
 
   @override
-  String toString() => 'EditSongSuccess {song: $location }';
+  String toString() => 'EditLocationSuccess {location: $location }';
 }
 
 class SearchStateError extends LocationsSearchState {

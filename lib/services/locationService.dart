@@ -1,4 +1,9 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:convert';
+import 'package:flutter_app/models/BeerModel.dart';
+import 'package:flutter_app/services/network_service_response.dart';
+import 'package:flutter_app/services/restClient.dart';
 import 'package:http/http.dart' as http;
 
 class BackendService {
@@ -35,11 +40,26 @@ class CitiesService {
     matches.retainWhere((s) => s.toLowerCase().contains(query.toLowerCase()));
     return matches;
   }
-Future<String> Get(String key) async{
 
-  var response = await http.get(
-      Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
-      headers: {"Accept": "application/json"});
+Future<NetworkServiceResponse<List<BeerModel>>> Get(String key) async{
 
-}
+  final streamedRsponse  = await RestClient().get<List<BeerModel>>(
+                                      Uri.encodeFull("https://jsonplaceholder.typicode.com/posts"),
+                                      headers: {"Accept": "application/json"})
+                                    //.then((response)  => jsonDecode(response.body))
+                                    .catchError(onError);
+  
+  return streamedRsponse.networkServiceResponse;
+  }
+
+  /*{
+                                                  response
+                                                        .transform(utf8.decoder)
+                                                        .transform(json.decoder)
+                                                        .expand((data) => (data as List))
+                                                        .map((data) => BeerModel.fromJson(data));}); */
+Exception  onError(String error){
+          print(error);
+        throw new Exception(error);
+  }
 }
