@@ -10,9 +10,9 @@ import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
-  final LyricsRepository lyricsRepository;
+  final NetworkService networkService;
 
-  LocationsSearchBloc({@required this.lyricsRepository});
+  LocationsSearchBloc({@required this.networkService});
 
   @override
   LocationsSearchState get initialState => SearchStateEmpty();
@@ -53,7 +53,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
       yield SearchStateLoading();
 
       try {
-        final result = await lyricsRepository.searchLocations(searchQuery);
+        final result = await networkService.searchLocations(searchQuery);
         yield SearchStateSuccess(result, searchQuery);
       } catch (error) {
         yield error is SearchResultError
@@ -64,7 +64,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   Stream<LocationsSearchState> _mapLocationAddToState(AddLocation event) async* {
-    LocationModel updatedLocation = await lyricsRepository.addLocation(event.Location);
+    LocationModel updatedLocation = await networkService.addLocation(event.Location);
     if (currentState is SearchStateSuccess) {
       SearchStateSuccess state = currentState;
       List<LocationModel> updatedList = (currentState as SearchStateSuccess).locations;
@@ -81,7 +81,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   Stream<LocationsSearchState> _mapLocationRemoveToState(RemoveLocation event) async* {
-    await lyricsRepository.removeLocation(event.LocationID);
+    await networkService.removeLocation(event.LocationID);
 //    if(state is SearchStateSuccess){
 //      SearchStateSuccess state = currentState;
 //      yield SearchStateSuccess(state.Locations, state.query);
@@ -89,7 +89,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   Stream<LocationsSearchState> _mapLocationEditToState(EditLocation event) async* {
-    LocationModel updatedLocation = await lyricsRepository.editLocation(event.Location);
+    LocationModel updatedLocation = await networkService.editLocation(event.Location);
     yield EditLocationstateSuccess(updatedLocation);
   }
 
