@@ -21,4 +21,4 @@ samples, guidance on mobile development, and a full API reference.
  BLOC: https://www.didierboelens.com/2018/12/reactive-programming---streams---bloc---practical-use-cases/
  ~ https://fluttertutorial.in/bloc-pattern-event-using-rest-api-call-in-flutter/
  ~ https://github.com/felangel/bloc
- ~ https://raw.githubusercontent.com/kkogut95/flutter_bloc_lyrics/master/lib/feature/song/bloc/songs_search_bloc.dart
+ ~ https://github.com/kkogut95/flutter_bloc_lyrics

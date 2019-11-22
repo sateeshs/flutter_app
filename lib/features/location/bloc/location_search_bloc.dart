@@ -6,13 +6,17 @@ import 'package:flutter_app/features/location/bloc/location_search_event.dart';
 import 'package:flutter_app/features/location/bloc/location_search_state.dart';
 import 'package:flutter_app/models/api/search_result_error.dart';
 import 'package:flutter_app/models/locationModel.dart';
+import 'package:flutter_app/services/locationService.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
-  final NetworkService networkService;
+  final CitiesService citiesService;
+  StreamSubscription addEditBlocSubscription;
 
-  LocationsSearchBloc({@required this.networkService});
+  LocationsSearchBloc({@required this.citiesService}){
+    
+  }
 
   @override
   LocationsSearchState get initialState => SearchStateEmpty();
@@ -53,7 +57,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
       yield SearchStateLoading();
 
       try {
-        final result = await networkService.searchLocations(searchQuery);
+        final result = await citiesService.getSuggestions(searchQuery);
         yield SearchStateSuccess(result, searchQuery);
       } catch (error) {
         yield error is SearchResultError
@@ -64,37 +68,43 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   Stream<LocationsSearchState> _mapLocationAddToState(AddLocation event) async* {
-    LocationModel updatedLocation = await networkService.addLocation(event.Location);
+    LocationModel updatedLocation = await citiesService.addCity(event.location);
     if (currentState is SearchStateSuccess) {
       SearchStateSuccess state = currentState;
       List<LocationModel> updatedList = (currentState as SearchStateSuccess).locations;
 
-      yield AddEditLocationstateSuccess();
+      //yield AddEditLocationstateSuccess();
 
       if (updatedLocation.isInQuery(state.query)) {
         updatedList..insert(0, updatedLocation);
       }
       yield SearchStateSuccess(updatedList, state.query);
-    } else {
-      yield AddEditLocationstateSuccess();
-    }
+    } //else {
+      //yield AddEditLocationstateSuccess();
+    //}
   }
 
   Stream<LocationsSearchState> _mapLocationRemoveToState(RemoveLocation event) async* {
-    await networkService.removeLocation(event.LocationID);
-//    if(state is SearchStateSuccess){
-//      SearchStateSuccess state = currentState;
-//      yield SearchStateSuccess(state.Locations, state.query);
-//    }
+    await citiesService.removeCity(event.locationID);
+   if(state is SearchStateSuccess){
+     SearchStateSuccess state = currentState;
+     yield SearchStateSuccess(state.locations, state.query);
+   }
   }
 
   Stream<LocationsSearchState> _mapLocationEditToState(EditLocation event) async* {
-    LocationModel updatedLocation = await networkService.editLocation(event.Location);
-    yield EditLocationstateSuccess(updatedLocation);
+    LocationModel updatedLocation = await citiesService.editCity(event.location);
+    //yield EditLocationstateSuccess(updatedLocation);
   }
 
   @override
   void onTransition(Transition<LocationEvent, LocationsSearchState> transition) {
     print(transition);
+  }
+  
+  @override
+  Future<void> close() {
+    addEditBlocSubscription.cancel();
+    return super.close();
   }
 }

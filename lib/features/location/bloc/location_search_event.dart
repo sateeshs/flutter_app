@@ -22,28 +22,28 @@ class TextChanged extends LocationEvent {
 }
 
 class AddLocation extends LocationEvent {
-  final LocationModel Location;
+  final LocationModel location;
 
-  AddLocation({this.Location}) : super([Location]);
+  AddLocation({this.location}) : super([location]);
 
   @override
-  String toString() => "AddLocation { Location ${Location.id}";
+  String toString() => "AddLocation { Location ${location.id}";
 }
 
 class EditLocation extends LocationEvent {
-  final LocationModel Location;
+  final LocationModel location;
 
-  EditLocation({this.Location}) : super([Location]);
+  EditLocation({this.location}) : super([location]);
 
   @override
-  String toString() => "EditLocation { Location ${Location.id}";
+  String toString() => "EditLocation { Location ${location.id}";
 }
 
 class RemoveLocation extends LocationEvent {
-  final int LocationID;
+  final int locationID;
 
-  RemoveLocation({this.LocationID}) : super([LocationID]);
+  RemoveLocation({this.locationID}) : super([locationID]);
 
   @override
-  String toString() => "Remove Location { LocationID: $LocationID }";
+  String toString() => "Remove Location { LocationID: $locationID }";
 }
