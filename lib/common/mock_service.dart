@@ -20,4 +20,10 @@ class MockService implements APIService {
   Future<NetworkServiceResponse<List<CountryResponse>>> country() {
     return null;
   }
+
+  @override
+  Future<bool> isConnected() {
+    // TODO: implement isConnected
+    return null;
+  }
 }

@@ -109,9 +109,9 @@ class LocationsSearchBloc extends Bloc<LocationSearchEvent, LocationsSearchState
     print(transition);
   }
   
-  /*@override
+  @override
   Future<void> close() {
     //addEditBlocSubscription.cancel();
-    //return super.close();
-  }*/
+    return super.close();
+  }
 }

@@ -6,17 +6,19 @@ import 'package:flutter_app/models/BeerModel.dart';
 import 'package:flutter_app/services/beerService.dart';
 
 class BeerListPage extends StatefulWidget {
-  BeerListPage({Key key, this.title}) : super(key: key);
+  final BeerService beerService;
+  BeerListPage({Key key, this.title,this.beerService}) : super(key: key);
   final String title;
 
   @override
-  _BeerListPageState createState() => _BeerListPageState();
+  _BeerListPageState createState() => _BeerListPageState(this.beerService);
 }
 
 class _BeerListPageState extends State<BeerListPage> {
   // Future object to fetch response from API (Response in future)
   Future<BeerListModel> beerListFuture;
-
+  final BeerService beerService;
+  _BeerListPageState(this.beerService);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +111,7 @@ class _BeerListPageState extends State<BeerListPage> {
 
   @override
   void initState() {
-    var beerService = new BeerService();
+
     // here first we are checking network connection
     beerService.isConnected().then((internet) {
       if (internet) {
