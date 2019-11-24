@@ -10,32 +10,39 @@ import 'package:http/http.dart' as http;
 
 
   class CitiesService {
-  static final List<String> cities = [
-    'Beirut',
-    'Damascus',
-    'San Fransisco',
-    'Rome',
-    'Los Angeles',
-    'Madrid',
-    'Bali',
-    'Barcelona',
-    'Paris',
-    'Bucharest',
-    'New York City',
-    'Philadelphia',
-    'Sydney',
-  ];
+   //List<LocationModel> cities =  <LocationModel>[];
+    List<LocationModel> _cities = List();
+    CitiesService()
+    {
+      _cities.add(new LocationModel(title: "Repalle",description: "Repalle",id: 1,imageURL: "",type: ""));
+      _cities.add(new LocationModel(title: "Vishakapatnam",description: "",id: 1,imageURL: "",type: ""));
+      _cities.add(new LocationModel(title: "karnal",description: "",id: 1,imageURL: "",type: ""));
+    }
+   //LocationModel value = LocationModel({"","","","",0});
+  //   [
+  //   'Beirut',
+  //   'Damascus',
+  //   'San Fransisco',
+  //   'Rome',
+  //   'Los Angeles',
+  //   'Madrid',
+  //   'Bali',
+  //   'Barcelona',
+  //   'Paris',
+  //   'Bucharest',
+  //   'New York City',
+  //   'Philadelphia',
+  //   'Sydney',
+  // ];
 
-  List<String> getSuggestions(String query) {
-    List<String> matches = List();
-    matches.addAll(cities);
+  List<LocationModel> getSuggestions(String query) {
 
-    matches.retainWhere((s) => s.toLowerCase().contains(query.toLowerCase()));
-    return matches;
+    _cities.retainWhere((s) => s.title.toLowerCase().contains(query.toLowerCase()));
+    return _cities;
   }
 LocationModel addCity(LocationModel cityName){
 
-  cities.add(cityName.description);
+  _cities.add(cityName);
   return cityName;
 }
 

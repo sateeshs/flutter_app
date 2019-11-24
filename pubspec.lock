@@ -35,7 +35,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.0"
+    version: "2.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -173,7 +173,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.21.0"
+    version: "2.0.1"
   flutter_driver:
     dependency: "direct dev"
     description: flutter
@@ -342,7 +342,7 @@ packages:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "4.1.1"
   multi_server_socket:
     dependency: transitive
     description:
@@ -606,7 +606,7 @@ packages:
       name: watcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.7+12"
+    version: "0.9.7+13"
   web_socket_channel:
     dependency: transitive
     description:

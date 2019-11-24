@@ -6,13 +6,11 @@ import 'package:flutter_app/models/locationModel.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class LocationEvent extends Equatable {
-  LocationEvent([List props = const []]) : super(props);
-
-  
+abstract class LocationSearchEvent extends Equatable {
+  LocationSearchEvent([List props = const []]) : super(props);
 }
 
-class TextChanged extends LocationEvent {
+class TextChanged extends LocationSearchEvent {
   final String query;
 
   TextChanged({this.query}) : super([query]);
@@ -21,7 +19,7 @@ class TextChanged extends LocationEvent {
   String toString() => "LocationSearchTextChanged { query: $query }";
 }
 
-class AddLocation extends LocationEvent {
+class AddLocation extends LocationSearchEvent {
   final LocationModel location;
 
   AddLocation({this.location}) : super([location]);
@@ -30,7 +28,7 @@ class AddLocation extends LocationEvent {
   String toString() => "AddLocation { Location ${location.id}";
 }
 
-class EditLocation extends LocationEvent {
+class EditLocation extends LocationSearchEvent {
   final LocationModel location;
 
   EditLocation({this.location}) : super([location]);
@@ -39,7 +37,7 @@ class EditLocation extends LocationEvent {
   String toString() => "EditLocation { Location ${location.id}";
 }
 
-class RemoveLocation extends LocationEvent {
+class RemoveLocation extends LocationSearchEvent {
   final int locationID;
 
   RemoveLocation({this.locationID}) : super([locationID]);

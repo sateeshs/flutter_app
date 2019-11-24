@@ -35,8 +35,8 @@ dependencies:
   font_awesome_flutter:
   meta: ^1.1.6
   equatable: ^0.2.0
-  bloc: ^0.15.0
-  flutter_bloc: ^0.21.0
+  bloc: ^2.0.0
+  flutter_bloc: ^2.0.1
   flutter_webview_plugin: ^0.3.7
 
 dev_dependencies:
@@ -45,7 +45,7 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   test: 1.6.2
-  mockito: ^3.0.0
+  mockito: ^4.1.1
   #integration_tests:
    # path: ../integration_tests
 

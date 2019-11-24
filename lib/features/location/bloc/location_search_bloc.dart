@@ -1,31 +1,35 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter_app/common/constants.dart';
-import 'package:flutter_app/features/location/bloc/location_search_event.dart';
-import 'package:flutter_app/features/location/bloc/location_search_state.dart';
 import 'package:flutter_app/models/api/search_result_error.dart';
 import 'package:flutter_app/models/locationModel.dart';
+import 'package:flutter_app/services/beerService.dart';
 import 'package:flutter_app/services/locationService.dart';
 import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
+import 'location_search_event.dart';
+import 'location_search_state.dart';
+
+class LocationsSearchBloc extends Bloc<LocationSearchEvent, LocationsSearchState> {
   final CitiesService citiesService;
-  StreamSubscription addEditBlocSubscription;
+  
+  //StreamSubscription addEditBlocSubscription;
 
   LocationsSearchBloc({@required this.citiesService}){
-    
+    //listen
   }
 
   @override
   LocationsSearchState get initialState => SearchStateEmpty();
 
+
+
+
   @override
-  Stream<LocationsSearchState> transformEvents(Stream<LocationEvent> events,
-      Stream<LocationsSearchState> Function(LocationEvent event) next) {
+  Stream<LocationsSearchState> transformEvents(Stream<LocationSearchEvent> events,
+      Stream<LocationsSearchState> Function(LocationSearchEvent event) next) {
     return super.transformEvents(
-      (events as Observable<LocationEvent>).debounceTime(
+      (events as Observable<LocationSearchEvent>).debounceTime(
         Duration(milliseconds: DEFAULT_SEARCH_DEBOUNCE),
       ),
       next,
@@ -33,7 +37,7 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   @override
-  Stream<LocationsSearchState> mapEventToState(LocationEvent event) async* {
+  Stream<LocationsSearchState> mapEventToState(LocationSearchEvent event) async* {
     if (event is TextChanged) {
       yield* _mapLocationsearchTextChangedToState(event);
     }
@@ -69,16 +73,16 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
 
   Stream<LocationsSearchState> _mapLocationAddToState(AddLocation event) async* {
     LocationModel updatedLocation = await citiesService.addCity(event.location);
-    if (currentState is SearchStateSuccess) {
-      SearchStateSuccess state = currentState;
-      List<LocationModel> updatedList = (currentState as SearchStateSuccess).locations;
+    if (state is SearchStateSuccess) {
+      SearchStateSuccess searchState = state;
+      List<LocationModel> updatedList = (state as SearchStateSuccess).locations;
 
       //yield AddEditLocationstateSuccess();
 
-      if (updatedLocation.isInQuery(state.query)) {
+      if (updatedLocation.isInQuery(searchState.query)) {
         updatedList..insert(0, updatedLocation);
       }
-      yield SearchStateSuccess(updatedList, state.query);
+      yield SearchStateSuccess(updatedList, searchState.query);
     } //else {
       //yield AddEditLocationstateSuccess();
     //}
@@ -87,8 +91,11 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   Stream<LocationsSearchState> _mapLocationRemoveToState(RemoveLocation event) async* {
     await citiesService.removeCity(event.locationID);
    if(state is SearchStateSuccess){
-     SearchStateSuccess state = currentState;
-     yield SearchStateSuccess(state.locations, state.query);
+     SearchStateSuccess searchState = state;
+     searchState.locations.removeWhere((song) {
+        return song.id == event.locationID;
+      });
+     yield SearchStateSuccess(searchState.locations, searchState.query);
    }
   }
 
@@ -98,13 +105,13 @@ class LocationsSearchBloc extends Bloc<LocationEvent, LocationsSearchState> {
   }
 
   @override
-  void onTransition(Transition<LocationEvent, LocationsSearchState> transition) {
+  void onTransition(Transition<LocationSearchEvent, LocationsSearchState> transition) {
     print(transition);
   }
   
-  @override
+  /*@override
   Future<void> close() {
-    addEditBlocSubscription.cancel();
-    return super.close();
-  }
+    //addEditBlocSubscription.cancel();
+    //return super.close();
+  }*/
 }

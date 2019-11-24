@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter_app/common/network_type.dart';
 import 'package:flutter_app/models/country.dart';
 import 'package:flutter_app/models/login.dart';
@@ -53,5 +54,13 @@ class NetworkService extends NetworkType implements APIService {
     return new NetworkServiceResponse(
         responseCode: result.networkServiceResponse.responseCode);
   }
-
+  Future<bool> isConnected() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      return true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    }
+    return false;
+  }
 }

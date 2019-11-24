@@ -6,10 +6,10 @@ import 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   SharedPreferences pref;
   void saveUserName(username) {
-    dispatch(SaveUserName(username: username));
+    //dispatch(SaveUserName(username: username));
   }
   void saveId(id) {
-    dispatch(SaveId(id: id));
+    //dispatch(SaveId(id: id));
   }
   void saveAuthToken(token) {
     dispatch(SaveToken(token: token));
