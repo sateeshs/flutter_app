@@ -18,7 +18,8 @@ class ProductPage extends StatelessWidget {
             Text(
               this.product['price'].toString() + ' USD',
               style: Theme.of(context).textTheme.subhead,
-            )
+            ),
+//ActionButtons()
           ],
         ),
       ),
