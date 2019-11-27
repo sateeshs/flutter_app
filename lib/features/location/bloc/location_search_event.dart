@@ -45,3 +45,12 @@ class RemoveLocation extends LocationSearchEvent {
   @override
   String toString() => "Remove Location { LocationID: $locationID }";
 }
+
+class SelectLocation extends LocationSearchEvent {
+  final LocationModel location;
+
+  SelectLocation({this.location}) : super([location]);
+
+  @override
+  String toString() => "Selected Location ${location.title }";
+}

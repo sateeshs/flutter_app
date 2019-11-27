@@ -42,6 +42,13 @@ class EditLocationStateSuccess extends LocationsSearchState {
   String toString() => 'EditLocationSuccess {location: $location }';
 }
 
+class SelectLocationStateSuccess extends LocationsSearchState {
+
+    final LocationModel location;
+SelectLocationStateSuccess(this.location):super([location]);
+  @override
+  String toString() => 'SelectedLocationSuccess';
+}
 class SearchStateError extends LocationsSearchState {
   final String error;
 

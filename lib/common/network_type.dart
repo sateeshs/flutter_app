@@ -1,5 +1,5 @@
 
-import 'package:flutter_app/services/restClient.dart';
+import 'package:flutter_app/services/rest_client.dart';
 
 abstract class NetworkType {
   RestClient rest;

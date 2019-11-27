@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter_app/common/constants.dart';
 import 'package:flutter_app/models/api/search_result_error.dart';
@@ -21,8 +23,6 @@ class LocationsSearchBloc extends Bloc<LocationSearchEvent, LocationsSearchState
 
   @override
   LocationsSearchState get initialState => SearchStateEmpty();
-
-
 
 
   @override

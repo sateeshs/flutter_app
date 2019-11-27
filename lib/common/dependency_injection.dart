@@ -1,6 +1,6 @@
 import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_app/services/network_service.dart';
-import 'package:flutter_app/services/restClient.dart';
+import 'package:flutter_app/services/rest_client.dart';
 
 import 'mock_service.dart';
 

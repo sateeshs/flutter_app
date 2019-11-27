@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter_app/common/network_type.dart';
 import 'package:flutter_app/models/beerListModel.dart';
 import 'package:flutter_app/models/country.dart';
-import 'package:flutter_app/services/restClient.dart';
+import 'package:flutter_app/services/rest_client.dart';
 import 'package:http/http.dart' as http;
 // to check internet connection
 import 'package:connectivity/connectivity.dart';

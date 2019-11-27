@@ -7,7 +7,7 @@ import 'package:flutter_app/models/country.dart';
 import 'package:flutter_app/models/login.dart';
 import 'package:flutter_app/services/api_service.dart';
 
-import 'package:flutter_app/services/restClient.dart';
+import 'package:flutter_app/services/rest_client.dart';
 
 import 'network_service_response.dart';
 

@@ -3,7 +3,7 @@ import 'package:flutter_app/models/country.dart';
 import 'package:flutter_app/models/userModel.dart';
 import 'package:flutter_app/services/api_service.dart';
 import 'package:flutter_app/services/network_service_response.dart';
-import 'package:flutter_app/services/restClient.dart';
+import 'package:flutter_app/services/rest_client.dart';
 
 class UserService extends NetworkType implements APIService {
   final _baseURL = 'https://restcountries.eu/rest/v2/';
