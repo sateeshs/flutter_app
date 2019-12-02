@@ -19,11 +19,12 @@ class _LocationSearch extends State<LocationSearch> {
   @override
   void initState() {
     super.initState();
-    _locationsSearchBloc = BlocProvider.of<LocationsSearchBloc>(context);
+    _locationsSearchBloc = LocationsSearchBloc(citiesService: CitiesService());
   }
 
   @override
   Widget build(BuildContext context) {
+    // _locationsSearchBloc = BlocProvider.of<LocationsSearchBloc>(context);
     return Padding(
       padding: EdgeInsets.all(32.0),
       child: Column(
@@ -42,18 +43,37 @@ class _LocationSearch extends State<LocationSearch> {
                   hintText: 'What are you looking for?'),
             ),
             suggestionsCallback: (pattern) async {
-               _locationsSearchBloc.add(TextChanged(query:pattern));
-               
-                      return (BlocProvider.of<LocationsSearchBloc>(context).state as SearchStateSuccess).locations;
-                      // .locals
-                      // .where(
-                      //   (local) =>
-                      //       local.description
-                      //           .toLowerCase()
-                      //           .contains(pattern.toLowerCase()),
-                      // )
-                      // .toList();
+              try {
+                final list = CitiesService().getSuggestions(pattern);
 
+                _locationsSearchBloc.add(TextChanged(query: pattern));
+                return list;
+                _locationsSearchBloc.listen((state) {
+                  if (state is SearchStateSuccess) {
+                    final results = (state as SearchStateSuccess).locations;
+                    return results;
+                  }
+                });
+
+                /*final results = (BlocProvider
+                    .of<LocationsSearchBloc>(context)
+                    .state as SearchStateSuccess)
+                    .locations;
+                return results;*/
+              }catch(e) {
+
+                print(e);
+              }
+
+
+              // .locals
+              // .where(
+              //   (local) =>
+              //       local.description
+              //           .toLowerCase()
+              //           .contains(pattern.toLowerCase()),
+              // )
+              // .toList();
             },
             itemBuilder: (context, suggestion) {
               return ListTile(
@@ -64,7 +84,8 @@ class _LocationSearch extends State<LocationSearch> {
             },
             onSuggestionSelected: (suggestion) {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ProductPage(product: suggestion as Map<String, dynamic>)));
+                  builder: (context) => ProductPage(
+                      product:  suggestion)));
             },
           ),
         ],

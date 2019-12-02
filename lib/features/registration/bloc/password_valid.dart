@@ -1,20 +1,17 @@
 import 'package:rxdart/rxdart.dart';
+import 'dart:async';
+const String _kEmailRule = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+
 class PasswordValidator {
   
-  // Stream<bool> get registerValid => Observable.combineLatest3(
-  //                                     email, 
-  //                                     password, 
-  //                                     confirmPassword, 
-  //                                     (e, p, c) => (0 == p.compareTo(c))
-  //                                   );
+   final StreamTransformer<String,String> validatePassword = 
+      StreamTransformer<String,String>.fromHandlers(handleData: (email, sink){
+        final RegExp emailExp = new RegExp(_kEmailRule);
 
-Stream<String> get confirmPassword => _passwordConfirmController.stream.transform(validatePassword)
-    .doOnData((String c){
-      // If the password is accepted (after validation of the rules)
-      // we need to ensure both password and retyped password match
-      if (0 != _passwordController.value.compareTo(c)){
-        // If they do not match, add an error
-        _passwordConfirmController.addError("No Match");
-      }
-    });
+        if (!emailExp.hasMatch(email) || email.isEmpty){
+          sink.addError('Entre a valid email');
+        } else {
+          sink.add(email);
+        }
+      });
 }
