@@ -22,7 +22,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+int _selectedTabIndex = 0; 
 
+  List _pages = [
+    Text("Home"), 
+    Text("Search"), 
+    Text("Cart"), 
+    Text("Account"), 
+  ]; 
+
+  void _changeIndex(int index) {
+    setState(() {
+      _selectedTabIndex = index; 
+    }); 
+  }
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -79,6 +92,21 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTabIndex, 
+        onTap: _changeIndex, 
+        type: BottomNavigationBarType.fixed, 
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")), 
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), title: Text("Search")), 
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), title: Text("Cart")), 
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle), title: Text("My Account")), 
+        ], 
+      ), 
+    
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
