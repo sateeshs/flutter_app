@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/locationModel.dart';
+//https://github.com/samarthagarwal/FutureBuildInFlutter/blob/master/lib/main.dart
 class ProductPage extends StatelessWidget {
   final LocationModel product;
   List<String> items = ["Beer", "Food", "Movie"];
