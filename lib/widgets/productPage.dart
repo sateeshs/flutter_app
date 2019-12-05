@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/features/items/ui/items_page.dart';
 import 'package:flutter_app/models/locationModel.dart';
 //https://github.com/samarthagarwal/FutureBuildInFlutter/blob/master/lib/main.dart
 class ProductPage extends StatelessWidget {
@@ -39,9 +40,9 @@ class ProductPage extends StatelessWidget {
       leading: Icon(Icons.local_drink),
       title: Text(item),
       onTap: () {
-        Navigator.push(context,null
-          //new MaterialPageRoutebuilder: (context) => new NowPlaying(songData, s)
-        );
+        Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ItemsPage(
+                      key: item as Key)));
       },
     );
   }

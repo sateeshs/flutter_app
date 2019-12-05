@@ -54,7 +54,7 @@ class PlatformParent extends PlatformWidget<CupertinoTabScaffold, Scaffold> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               new SvgPicture.asset(
-                "assets/paw.svg",
+                "assets/logo.svg",
                 width: 48,
                 color: VoiceTheme.blaze_orange,
               ),
